@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0b1020">
+  <meta name="description" content="DermaScan AI educational skin concern screening prototype.">
+  <title>DermaScan AI — Preliminary Skin Screening</title>
+  <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <a class="brand" href="/" aria-label="DermaScan AI home">
+        <span class="brand-mark">✳</span>
+        <span><strong>DermaScan</strong><small>AI SCREENING LAB</small></span>
+      </a>
+      <div class="side-label">WORKSPACE</div>
+      <a class="nav-item active" href="#overview"><span>◫</span> Overview</a>
+      <a class="nav-item" href="#screening"><span>⌕</span> New screening</a>
+      <a class="nav-item" href="#how-it-works"><span>◎</span> How it works</a>
+      <div class="sidebar-bottom">
+        <div class="status-card"><span class="status-dot"></span><div><b>Demo environment</b><small>AI model not connected</small></div></div>
+        <p>Educational prototype<br>Not for medical diagnosis.</p>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <div class="crumb">Workspace <span>/</span> <b>Overview</b></div>
+        <div class="top-actions"><span class="secure-pill">◈ Privacy-first demo</span><span class="avatar">DS</span></div>
+      </header>
+
+      <section id="overview" class="hero">
+        <div class="hero-copy">
+          <div class="eyebrow"><span class="pulse"></span> PRELIMINARY ASSESSMENT WORKSPACE</div>
+          <h1>Better context.<br><span>More informed care.</span></h1>
+          <p>Organize skin concerns and symptoms into a clear summary to support a conversation with a qualified healthcare professional.</p>
+          <a class="primary-btn" href="#screening">Start a screening <span>↗</span></a>
+          <div class="hero-note"><span>ⓘ</span> This tool does not diagnose skin conditions.</div>
+        </div>
+        <div class="hero-art" aria-hidden="true">
+          <div class="orb orb-one"></div><div class="orb orb-two"></div>
+          <div class="scan-card">
+            <div class="scan-top"><span class="tiny-icon">✳</span><span>SCREENING WORKFLOW</span><span class="live-dot"></span></div>
+            <div class="skin-illustration"><div class="skin-ring ring-a"></div><div class="skin-ring ring-b"></div><div class="skin-core"></div><div class="scan-line"></div></div>
+            <div class="scan-footer"><div><small>Image analysis</small><b>Not connected</b></div><span class="outline-chip">DEMO MODE</span></div>
+          </div>
+          <div class="floating-tag tag-top"><span>✓</span> Image validation</div>
+          <div class="floating-tag tag-bottom"><span>⌁</span> Symptom summary</div>
+        </div>
+      </section>
+
+      <section class="notice-banner">
+        <span class="notice-icon">!</span>
+        <div><b>Research prototype — no clinical AI model is connected</b><p>Image uploads are checked for file validity only. Results never claim a skin disease prediction.</p></div>
+        <span class="demo-badge">DEMO</span>
+      </section>
+
+      <section class="stats-grid" aria-label="Project status">
+        <article class="stat-card"><div class="stat-icon teal">⌁</div><div class="stat-label">Image workflow</div><div class="stat-value">Ready to test</div><div class="stat-sub">File validation only</div></article>
+        <article class="stat-card"><div class="stat-icon violet">☷</div><div class="stat-label">Symptom intake</div><div class="stat-value">Interactive</div><div class="stat-sub">Safety guidance rules</div></article>
+        <article class="stat-card"><div class="stat-icon blue">◇</div><div class="stat-label">AI inference</div><div class="stat-value">Not configured</div><div class="stat-sub">No model weights loaded</div></article>
+        <article class="stat-card"><div class="stat-icon amber">▤</div><div class="stat-label">Patient records</div><div class="stat-value">Not stored</div><div class="stat-sub">No history database</div></article>
+      </section>
+
+      <section id="screening" class="workspace-section">
+        <div class="section-heading"><div><div class="eyebrow">NEW ASSESSMENT</div><h2>Skin concern screening</h2><p>Complete the two steps below. Avoid including identifying details.</p></div><span class="step-indicator">STEP <b id="step-number">01</b> / 02</span></div>
+        <div class="screening-grid">
+          <article class="panel upload-panel">
+            <div class="panel-heading"><div><span class="panel-kicker">STEP 01</span><h3>Skin image</h3></div><span class="panel-symbol">↥</span></div>
+            <p class="panel-description">Choose a clear JPG, PNG, or WEBP image. The image is checked but not saved or medically analyzed.</p>
+            <label class="upload-zone" id="drop-zone" for="skin-image">
+              <input id="skin-image" type="file" accept="image/jpeg,image/png,image/webp">
+              <div id="upload-placeholder"><div class="upload-icon">↥</div><b>Drop an image here or <u>browse files</u></b><span>JPG, PNG or WEBP · Max 8 MB</span></div>
+              <img id="image-preview" alt="Selected skin image preview" hidden>
+              <div id="image-meta" hidden></div>
+            </label>
+            <div class="privacy-line"><span>▣</span> Image is not retained by this demo.</div>
+            <button class="secondary-btn full" id="check-image-btn" type="button">Analyze image <span>→</span></button>
+            <div id="image-status" class="inline-status" role="status" aria-live="polite"></div>
+            <div id="model-results" class="model-results" hidden aria-live="polite"></div>
+          </article>
+
+          <article class="panel symptom-panel">
+            <div class="panel-heading"><div><span class="panel-kicker">STEP 02</span><h3>Symptom overview</h3></div><span class="panel-symbol">☷</span></div>
+            <p class="panel-description">Your answers provide context only; they do not establish a diagnosis.</p>
+            <form id="symptom-form">
+              <label class="field-label" for="duration">How long has the concern been present?</label>
+              <select id="duration" name="duration">
+                <option value="unknown">Not sure</option><option value="under_week">Less than a week</option>
+                <option value="1_2_weeks">1–2 weeks</option><option value="2_4_weeks">2–4 weeks</option>
+                <option value="over_month">More than a month</option>
+              </select>
+              <div class="field-label checks-label">Have you noticed any of these?</div>
+              <div class="check-grid">
+                <label class="check-option"><input type="checkbox" name="itching"><span>Itching</span></label>
+                <label class="check-option"><input type="checkbox" name="pain"><span>Pain or tenderness</span></label>
+                <label class="check-option"><input type="checkbox" name="changing"><span>Changing in size/colour</span></label>
+                <label class="check-option"><input type="checkbox" name="bleeding_or_open_sore"><span>Bleeding or open sore</span></label>
+                <label class="check-option wide"><input type="checkbox" name="fever_or_rapid_spread"><span>Fever or rapid spreading</span></label>
+              </div>
+              <label class="field-label" for="notes">Optional notes <span class="optional">(no personal identifiers)</span></label>
+              <textarea id="notes" name="notes" rows="3" maxlength="1000" placeholder="Describe what you have noticed..."></textarea>
+              <button class="primary-btn full" type="submit">Generate symptom summary <span>↗</span></button>
+            </form>
+          </article>
+        </div>
+      </section>
+
+      <section id="results" class="panel results-panel" hidden aria-live="polite">
+        <div class="panel-heading"><div><span class="panel-kicker">SCREENING SUMMARY</span><h3>Your submitted information</h3></div><span class="outline-chip">NOT A DIAGNOSIS</span></div>
+        <div class="result-alert"><span class="result-alert-icon">ⓘ</span><div><b id="result-urgency">Educational guidance</b><p id="result-summary"></p></div></div>
+        <div class="result-meta"><div><small>Image model</small><b>Not configured</b></div><div><small>Output type</small><b>Rule-based guidance</b></div><div><small>Disease prediction</small><b>Not provided</b></div></div>
+        <p class="disclaimer" id="result-disclaimer"></p>
+        <button class="secondary-btn" id="reset-btn" type="button">Start a new screening ↻</button>
+      </section>
+
+      <section id="how-it-works" class="how-section">
+        <div class="section-heading"><div><div class="eyebrow">TRANSPARENT BY DESIGN</div><h2>How this prototype works</h2></div></div>
+        <div class="how-grid">
+          <article class="how-card"><span>01</span><h3>Validate</h3><p>Check the uploaded image's file type, size and dimensions. No visual diagnosis is made.</p></article>
+          <article class="how-card"><span>02</span><h3>Collect context</h3><p>Record selected symptom flags and duration for a readable summary.</p></article>
+          <article class="how-card"><span>03</span><h3>Guide safely</h3><p>Offer cautious general next-step guidance without naming or predicting a disease.</p></article>
+        </div>
+      </section>
+      <footer><div class="brand-mini"><span class="brand-mark">✳</span><b>DermaScan AI</b></div><span>Educational prototype · v0.1.0</span><a href="#overview">Back to top ↑</a></footer>
+    </main>
+  </div>
+  <script src="/static/app.js"></script>
+</body>
+</html>
